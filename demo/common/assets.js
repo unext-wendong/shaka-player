@@ -233,10 +233,11 @@ shakaAssets.UplynkRequestFilter = (type, request) => {
 /* eslint-disable max-len */
 /** @const {!Array.<!ShakaDemoAssetInfo>} */
 shakaAssets.testAssets = [
+  // Shaka assets {{{
   new ShakaDemoAssetInfo(
       /* name= */ 'SupperSpeedway Clear (MSS)',
       /* iconUri= */ 'https://storage.googleapis.com/shaka-asset-icons/tears_of_steel.png',
-      /* manifestUri= */ 'https://playready.directtaps.net/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/Manifest',
+      /* manifestUri= */ 'https://test.playready.microsoft.com/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/Manifest',
       /* source= */ shakaAssets.Source.CUSTOM)
       .markAsFeatured('SupperSpeedway Clear')
       .addFeature(shakaAssets.Feature.MSS)
@@ -245,6 +246,16 @@ shakaAssets.testAssets = [
   new ShakaDemoAssetInfo(
       /* name= */ 'SupperSpeedway PlayReady (MSS)',
       /* iconUri= */ 'https://storage.googleapis.com/shaka-asset-icons/tears_of_steel.png',
+      /* manifestUri= */ 'https://test.playready.microsoft.com/smoothstreaming/SSWSS720H264PR/SuperSpeedway_720.ism/Manifest',
+      /* source= */ shakaAssets.Source.CUSTOM)
+      .markAsFeatured('SupperSpeedway PlayReady')
+      .addKeySystem(shakaAssets.KeySystem.PLAYREADY)
+      .addFeature(shakaAssets.Feature.MSS)
+      .addFeature(shakaAssets.Feature.MP4)
+      .addLicenseServer('com.microsoft.playready', 'https://test.playready.microsoft.com/service/rightsmanager.asmx?cfg=(persist:false,sl:150)'),
+  new ShakaDemoAssetInfo(
+      /* name= */ 'SupperSpeedway PlayReady old (MSS)',
+      /* iconUri= */ 'https://storage.googleapis.com/shaka-asset-icons/tears_of_steel.png',
       /* manifestUri= */ 'https://playready.directtaps.net/smoothstreaming/SSWSS720H264PR/SuperSpeedway_720.ism/Manifest',
       /* source= */ shakaAssets.Source.CUSTOM)
       .markAsFeatured('SupperSpeedway PlayReady')
@@ -252,7 +263,6 @@ shakaAssets.testAssets = [
       .addFeature(shakaAssets.Feature.MSS)
       .addFeature(shakaAssets.Feature.MP4)
       .addLicenseServer('com.microsoft.playready', 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx'),
-  // Shaka assets {{{
   new ShakaDemoAssetInfo(
       /* name= */ 'Big Buck Bunny: the Dark Truths of a Video Dev Cartoon (DASH)',
       /* iconUri= */ 'https://storage.googleapis.com/shaka-asset-icons/dark_truth.png',
