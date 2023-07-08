@@ -264,6 +264,16 @@ shakaAssets.testAssets = [
       .addFeature(shakaAssets.Feature.MP4)
       .addLicenseServer('com.microsoft.playready', 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx'),
   new ShakaDemoAssetInfo(
+      /* name= */ 'UNEXT Smooth (MSS)',
+      /* iconUri= */ 'https://storage.googleapis.com/shaka-asset-icons/tears_of_steel.png',
+      /* manifestUri= */ 'https://streams01o.nxtv.jp/ondemand/gs04/0015/255/15a2bad2-9662-47b5-96ba-98f1870d335b.ism/manifest',
+      /* source= */ shakaAssets.Source.CUSTOM)
+      .markAsFeatured('UNEXT Smooth')
+      .addKeySystem(shakaAssets.KeySystem.PLAYREADY)
+      .addFeature(shakaAssets.Feature.MSS)
+      .addFeature(shakaAssets.Feature.MP4)
+      .addLicenseServer('com.microsoft.playready', 'https://license.unext.jp/unextplayreadyvod/indexs.asmx?play_token=b153a446-739b-4a2b-8791-df6f385bde95'),
+  new ShakaDemoAssetInfo(
       /* name= */ 'Big Buck Bunny: the Dark Truths of a Video Dev Cartoon (DASH)',
       /* iconUri= */ 'https://storage.googleapis.com/shaka-asset-icons/dark_truth.png',
       /* manifestUri= */ 'https://storage.googleapis.com/shaka-demo-assets/bbb-dark-truths/dash.mpd',
