@@ -235,6 +235,69 @@ shakaAssets.UplynkRequestFilter = (type, request) => {
 shakaAssets.testAssets = [
   // Shaka assets {{{
   new ShakaDemoAssetInfo(
+      /* name= */ 'UNEXT wabit-dev vod LLP',
+      /* iconUri= */ 'https://storage.googleapis.com/shaka-asset-icons/dark_truth.png',
+      /* manifestUri= */ 'https://d2zidnqftjll1o.cloudfront.net/out/v1/27da5c97dd4e4d1bbcec34a4a025846d/68c169bd57eb405899805efe8f8227a7/66beddf5f9954694887d54586dddaf2d/index.ism/Manifest',
+      /* source= */ shakaAssets.Source.SHAKA)
+      .markAsFeatured('UNEXT wabit-dev vod LLP')
+      .addFeature(shakaAssets.Feature.MSS)
+      .addFeature(shakaAssets.Feature.HIGH_DEFINITION)
+      .addFeature(shakaAssets.Feature.MP4)
+      .setMimeType('application/vnd.ms-sstr+xml')
+      .addLicenseServer('com.microsoft.playready', 'https://wabit-lime.awsdev.unext.dev/rightsmanager?play_token=eyJhbGciOiJFUzI1NiIsImtpZCI6InVuZXh0LWxscC1kZXYtMDEifQ.eyJleHAiOjQ4NDA5NDA5MjMsImNvbnRlbnRUeXBlIjoibGl2ZSIsInRpdGxlSWQiOiJMSVYwMDAwMDAwNDExIiwiZXBpc29kZUlkIjoiTElWMDAwMDAwMDQxMSIsInNhbGVUeXBlIjoiUExBTiIsInBmaWQiOiIxMjM0NTY3ODkiLCJjdWlkIjoiUE0wMDAwMDAwMDAiLCJkcm1JZCI6IkxJVjAwMDAwMDA0MTEifQ.Lh1WW2EVL47zPAqEXQjNV6EvO4eKqcVD59xnge_uz8iHN1wNMTVEI7X2QyhCrlGzJpAv7XyEK5mLEgB2DQZ6cw'),
+  new ShakaDemoAssetInfo(
+      /* name= */ 'UNEXT wabit-prod vod LLP',
+      /* iconUri= */ 'https://storage.googleapis.com/shaka-asset-icons/dark_truth.png',
+      /* manifestUri= */ 'https://d2zidnqftjll1o.cloudfront.net/out/v1/27da5c97dd4e4d1bbcec34a4a025846d/68c169bd57eb405899805efe8f8227a7/66beddf5f9954694887d54586dddaf2d/index.ism/Manifest',
+      /* source= */ shakaAssets.Source.SHAKA)
+      .markAsFeatured('UNEXT wabit-prod vod LLP')
+      .addFeature(shakaAssets.Feature.MSS)
+      .addFeature(shakaAssets.Feature.HIGH_DEFINITION)
+      .addFeature(shakaAssets.Feature.MP4)
+      .setMimeType('application/vnd.ms-sstr+xml')
+      .addLicenseServer('com.microsoft.playready', 'https://wabit-lime.ca.unext.jp/rightsmanager?play_token=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InVuZXh0LWxscC1wcm9kLTAxIn0.eyJleHAiOjE2OTEwNDQ2NzUsImNvbnRlbnRUeXBlIjoibGl2ZSIsInRpdGxlSWQiOiJMSVYwMDAwMDAwNDExIiwiZXBpc29kZUlkIjoiRVAwMDAwMDAwIiwiZHJtSWQiOiJMSVYwMDAwMDAwNDExIiwic2FsZVR5cGUiOiJGUkVFIiwicGxhdGZvcm1Db2RlIjoidW5leHQiLCJwZmlkIjoiMzI1MDIzNzYiLCJjdWlkIjoiUE0wMjk5NzY3MjgiLCJpYXQiOjE2ODg0NTI2NzZ9.5eLZsOuhbV1LYgzUjHg1vzOBiQUGoHOd2K2eDiKV6jZNXBQXAfD4NImujFV5UgtjFf86GDjCdn5uPLLl8hIozA'),
+  new ShakaDemoAssetInfo(
+      /* name= */ 'UNEXT MUSIC 0001 newly created',
+      /* iconUri= */ 'https://storage.googleapis.com/shaka-asset-icons/dark_truth.png',
+      /* manifestUri= */ 'https://lime-manifest.music.unext.dev/manifest/default/smooth/sdr/00000000-0000-0000-0000-000000000001.ism/Manifest?authorization=Bearer%20eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIiwia2lkIjoidW5leHQtaXQwMSJ9.h43WAkXQnm2ohAE1PvzYLcV8a5_DAG169Pe0HH2Vzq_2_UOsDhCzvhNryj08dCB73Dc5VRPlyKT71PfRiKpzP8RA4oirJl_7tPBwzGrCmGQLn3wLBQAHZ6JjNiIxMhuaL3uJ1eKTUSA_tCswdDe4vYRx7vMfdEXTR1F8QjsqRHD1f4-mNENpDU6TRhpgeSsKE60y0rL2L8kj9R6Jue7Z5MjrwoYfdMvSDWMKmpUnFaOhX0neBHjTDAeg4RQyL_sVpZjUo87YxNGGfvRqY1K3hOV4pug0oNuKRzjLgHMKiM3szOtsf-_2XJlbAO7wgEkIYbInNQux7L7hpDPSOnkvdQ.KIYe3yL4_Zgb1cbW.sZvLpeB0nmL4sF1fUcTOOirZALs9qb6x4cqangQrv-2fbQX0BMMWRzrHvaa_9fneckOhUAsrCBUk0iGWLApUl3wKq54Lbg9r-9sJEeH9LvwJfL58G5ghjUlyb2scEO_j4SfYkilciXKjjQg0mFhG9GYtbFfJ_82X-FH8_cy4n86_bhbfCX5uKezP8C3Idwcs3u6wDuOwK19CJzO5OqMKoJbbrnG_KqNzU6GYa6-K4ukOr9DSfu3xTinfli5f43qvgU46aO5-kfKKSS5uuWwdLPYHGoQntXVVHk6wpfgnvrECXMaL5Qi4YwHItQbENsXGCvfyxxxfIuDSBwXO-i_2oPEB1tjjqBtUTrnLW3K7ih6juyEFj5FEW9cTRXFIGOKxMlDAmRuuBMJvhmlMqqgKV6wqCihW1W6QDpoyXtVjW2ZaRfqUs3hJjv5OcBDOsDdOb7jhmpsph_AQ0g.iU35Aaa9vXndHK2z8ZwhGQ',
+      /* source= */ shakaAssets.Source.SHAKA)
+      .markAsFeatured('UNEXT MUSIC 0001 newly created')
+      .addFeature(shakaAssets.Feature.MSS)
+      .addFeature(shakaAssets.Feature.HIGH_DEFINITION)
+      .addFeature(shakaAssets.Feature.MP4)
+      .setMimeType('application/vnd.ms-sstr+xml')
+      .addLicenseServer('com.microsoft.playready', 'https://lime-playready.music.unext.dev/rightsmanager?authorization=Bearer%20eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIiwia2lkIjoidW5leHQtaXQwMSJ9.h43WAkXQnm2ohAE1PvzYLcV8a5_DAG169Pe0HH2Vzq_2_UOsDhCzvhNryj08dCB73Dc5VRPlyKT71PfRiKpzP8RA4oirJl_7tPBwzGrCmGQLn3wLBQAHZ6JjNiIxMhuaL3uJ1eKTUSA_tCswdDe4vYRx7vMfdEXTR1F8QjsqRHD1f4-mNENpDU6TRhpgeSsKE60y0rL2L8kj9R6Jue7Z5MjrwoYfdMvSDWMKmpUnFaOhX0neBHjTDAeg4RQyL_sVpZjUo87YxNGGfvRqY1K3hOV4pug0oNuKRzjLgHMKiM3szOtsf-_2XJlbAO7wgEkIYbInNQux7L7hpDPSOnkvdQ.KIYe3yL4_Zgb1cbW.sZvLpeB0nmL4sF1fUcTOOirZALs9qb6x4cqangQrv-2fbQX0BMMWRzrHvaa_9fneckOhUAsrCBUk0iGWLApUl3wKq54Lbg9r-9sJEeH9LvwJfL58G5ghjUlyb2scEO_j4SfYkilciXKjjQg0mFhG9GYtbFfJ_82X-FH8_cy4n86_bhbfCX5uKezP8C3Idwcs3u6wDuOwK19CJzO5OqMKoJbbrnG_KqNzU6GYa6-K4ukOr9DSfu3xTinfli5f43qvgU46aO5-kfKKSS5uuWwdLPYHGoQntXVVHk6wpfgnvrECXMaL5Qi4YwHItQbENsXGCvfyxxxfIuDSBwXO-i_2oPEB1tjjqBtUTrnLW3K7ih6juyEFj5FEW9cTRXFIGOKxMlDAmRuuBMJvhmlMqqgKV6wqCihW1W6QDpoyXtVjW2ZaRfqUs3hJjv5OcBDOsDdOb7jhmpsph_AQ0g.iU35Aaa9vXndHK2z8ZwhGQ'),
+  new ShakaDemoAssetInfo(
+      /* name= */ 'UNEXT BEEMI 0001 legacy',
+      /* iconUri= */ 'https://storage.googleapis.com/shaka-asset-icons/dark_truth.png',
+      /* manifestUri= */ 'https://lime-manifest.beemi.unext.dev/manifest/legacy/smooth/sdr/00000001-0000-0000-0000-000000000001.ism/Manifest?authorization=Bearer%20eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIiwia2lkIjoiYm0taXQwMSJ9.gU3GxI4-89qtoXefIVvRNz-mZcZZ4d1xb4-ngr0_32Fwfvo-Zrro-2qiNjo0Dm7kN_TozHC1bmGJ9qLB4o1jWVKmwVB_oNI0t12lnTD4V_dtVVP4vZj_rNai8d8ZQy5SwEM4JmFDYZayvpS-sxOph1ZY-gywRuCLy-k6kUeCbwJTxGaVz04pwGDTPst7LilJZaCxiR-GQXwVkcXqaLkc5gHy2fqRN-1cdsCuQvnzE9aYp4_LG-nUG5Uv9HaWBuiok26qKlw7tP7inxi_ZwXTyRoSPEAd0P7TjBJwYAkAZAcsCX0Znq4sVaZ4Ql-cSyDtJpBUCfWiX3tzauQ4W4cFKw.JnK4NFbewENadNU3.vwudvL5UkHfSLIWHfrIo-S0ghPx_2OZufcbRAln1pBQ1r0EiihbvHCmAWvr0Msdu-RPlFOV4eSYCcczGKUIZKTA0uy4eOSVFy5nCpHfAmVK2tg8sf9Xhs-5e5foCLlgoGsNGMOkdgsZ9XlhDgcvzZW24hm2Zjk060bbrRClrGFt98pJyFvrWGmotu4uHvOJIM6shdGHuimknJ17JVTqgFlFq6NunikEStbJK6GDHb7J0PptpPTn64L8v-K5qlU_CKe4y93to-IsHyWmyRWSO2PRPyYehEq8v0MRC3qqPpWStSmhL9epUKvEBc41dlJfUXdaPiIzfWtYvYOekXDuGharIVSA-lmIMGWdmAyJeaq-Vrs71UM-vQZuMA9igBCc_F2vR7fqjlmKTSd6ab3hYtBNu86xAa3CUC_vkXV1VoKbujh-c6XFAh-2Vyh_7u4M1oCADgRBzqX7VbQ.UU0bYhDx-rDQi3JfSynezw',
+      /* source= */ shakaAssets.Source.SHAKA)
+      .markAsFeatured('UNEXT MUSIC 0001 newly created')
+      .addFeature(shakaAssets.Feature.MSS)
+      .addFeature(shakaAssets.Feature.HIGH_DEFINITION)
+      .addFeature(shakaAssets.Feature.MP4)
+      .setMimeType('application/vnd.ms-sstr+xml')
+      .addLicenseServer('com.microsoft.playready', 'https://lime-playready.beemi.unext.dev/rightsmanager?authorization=Bearer%20eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIiwia2lkIjoiYm0taXQwMSJ9.gU3GxI4-89qtoXefIVvRNz-mZcZZ4d1xb4-ngr0_32Fwfvo-Zrro-2qiNjo0Dm7kN_TozHC1bmGJ9qLB4o1jWVKmwVB_oNI0t12lnTD4V_dtVVP4vZj_rNai8d8ZQy5SwEM4JmFDYZayvpS-sxOph1ZY-gywRuCLy-k6kUeCbwJTxGaVz04pwGDTPst7LilJZaCxiR-GQXwVkcXqaLkc5gHy2fqRN-1cdsCuQvnzE9aYp4_LG-nUG5Uv9HaWBuiok26qKlw7tP7inxi_ZwXTyRoSPEAd0P7TjBJwYAkAZAcsCX0Znq4sVaZ4Ql-cSyDtJpBUCfWiX3tzauQ4W4cFKw.JnK4NFbewENadNU3.vwudvL5UkHfSLIWHfrIo-S0ghPx_2OZufcbRAln1pBQ1r0EiihbvHCmAWvr0Msdu-RPlFOV4eSYCcczGKUIZKTA0uy4eOSVFy5nCpHfAmVK2tg8sf9Xhs-5e5foCLlgoGsNGMOkdgsZ9XlhDgcvzZW24hm2Zjk060bbrRClrGFt98pJyFvrWGmotu4uHvOJIM6shdGHuimknJ17JVTqgFlFq6NunikEStbJK6GDHb7J0PptpPTn64L8v-K5qlU_CKe4y93to-IsHyWmyRWSO2PRPyYehEq8v0MRC3qqPpWStSmhL9epUKvEBc41dlJfUXdaPiIzfWtYvYOekXDuGharIVSA-lmIMGWdmAyJeaq-Vrs71UM-vQZuMA9igBCc_F2vR7fqjlmKTSd6ab3hYtBNu86xAa3CUC_vkXV1VoKbujh-c6XFAh-2Vyh_7u4M1oCADgRBzqX7VbQ.UU0bYhDx-rDQi3JfSynezw'),
+  new ShakaDemoAssetInfo(
+      /* name= */ 'Microsoft Smooth Streaming PlayReady',
+      /* iconUri= */ 'https://reference.dashif.org/dash.js/latest/samples/lib/img/mss-1.jpg',
+      /* manifestUri= */ 'https://test.playready.microsoft.com/smoothstreaming/SSWSS720H264PR/SuperSpeedway_720.ism/Manifest',
+      /* source= */ shakaAssets.Source.CUSTOM)
+      .markAsFeatured('Microsoft Smooth Streaming PlayReady')
+      .addFeature(shakaAssets.Feature.MSS)
+      .addFeature(shakaAssets.Feature.HIGH_DEFINITION)
+      .addFeature(shakaAssets.Feature.MP4)
+      .addLicenseServer('com.microsoft.playready', 'https://test.playready.microsoft.com/service/rightsmanager.asmx?cfg=(persist:false,sl:150)'),
+  new ShakaDemoAssetInfo(
+      /* name= */ 'Microsoft Smooth Streaming Clear',
+      /* iconUri= */ 'https://reference.dashif.org/dash.js/latest/samples/lib/img/mss-1.jpg',
+      /* manifestUri= */ 'https://test.playready.microsoft.com/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/Manifest',
+      /* source= */ shakaAssets.Source.CUSTOM)
+      .markAsFeatured('Microsoft Smooth Streaming Clear')
+      .addFeature(shakaAssets.Feature.MSS)
+      .addFeature(shakaAssets.Feature.HIGH_DEFINITION)
+      .addFeature(shakaAssets.Feature.MP4),
+  new ShakaDemoAssetInfo(
       /* name= */ 'Big Buck Bunny: the Dark Truths of a Video Dev Cartoon (DASH)',
       /* iconUri= */ 'https://storage.googleapis.com/shaka-asset-icons/dark_truth.png',
       /* manifestUri= */ 'https://storage.googleapis.com/shaka-demo-assets/bbb-dark-truths/dash.mpd',
