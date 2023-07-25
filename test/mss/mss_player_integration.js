@@ -23,7 +23,9 @@ describe('MSS Player', () => {
   let waiter;
 
   // eslint-disable-next-line max-len
-  const url = 'https://playready.directtaps.net/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/Manifest';
+  const url = 'https://test.playready.microsoft.com/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/Manifest';
+  // eslint-disable-next-line max-len
+  // const urlPR = 'https://test.playready.microsoft.com/smoothstreaming/SSWSS720H264PR/SuperSpeedway_720.ism/Manifest';
 
   beforeAll(async () => {
     video = shaka.test.UiUtils.createVideoElement();
@@ -55,6 +57,14 @@ describe('MSS Player', () => {
   });
 
   it('MSS VoD', async () => {
+    const config = shaka.util.PlayerConfiguration.createDefault();
+    // config.drm.servers = {
+    //   // eslint-disable-next-line max-len
+    //   'com.microsoft.playready': 'https://test.playready.microsoft.com/service/rightsmanager.asmx?cfg=(persist:false,sl:150)',
+    // };
+    expect(player.configure(config)).toBe(true);
+    expect(player.configure('restrictions.maxHeight', 1)).toBe(true);
+
     // Make sure we are playing the lowest res available to avoid test flake
     // based on network issues.  Note that disabling ABR and setting a low
     // abr.defaultBandwidthEstimate would not be sufficient, because it
@@ -64,7 +74,7 @@ describe('MSS Player', () => {
     // the new period.  Using abr.restrictions.maxHeight will let us force
     // AbrManager to the lowest resolution, which is its fallback when these
     // soft restrictions cannot be met.
-    player.configure('abr.restrictions.maxHeight', 1);
+    // expect(player.configure('abr.restrictions.maxHeight', 1)).toBe(true);
 
     await player.load(url, /* startTime= */ null,
         /* mimeType= */ 'application/vnd.ms-sstr+xml');
@@ -81,4 +91,39 @@ describe('MSS Player', () => {
 
     await player.unload();
   });
+
+  // it('MSS VoD PlayReady protected', async () => {
+  //   const config = shaka.util.PlayerConfiguration.createDefault();
+  //   config.drm.servers = {
+  //     // eslint-disable-next-line max-len
+  //     'com.microsoft.playready': 'https://test.playready.microsoft.com/service/rightsmanager.asmx?cfg=(persist:false,sl:150)',
+  //   };
+  //   expect(player.configure(config)).toBe(true);
+
+  //   // Make sure we are playing the lowest res available to avoid test flake
+  //   // based on network issues.  Note that disabling ABR and setting a low
+  //   // abr.defaultBandwidthEstimate would not be sufficient, because it
+  //   // would only affect the choice of track on the first period.  When we
+  //   // cross a period boundary, the default bandwidth estimate will no
+  //   // longer be in effect, and AbrManager may choose higher res tracks for
+  //   // the new period.  Using abr.restrictions.maxHeight will let us force
+  //   // AbrManager to the lowest resolution, which is its fallback when these
+  //   // soft restrictions cannot be met.
+  //   expect(player.configure('abr.restrictions.maxHeight', 1)).toBe(true);
+
+  //   await player.load(urlPR, /* startTime= */ null,
+  //       /* mimeType= */ 'application/vnd.ms-sstr+xml');
+  //   video.play();
+  //   expect(player.isLive()).toBe(false);
+
+  //   // Wait for the video to start playback.  If it takes longer than 10
+  //   // seconds, fail the test.
+  //   await waiter.waitForMovementOrFailOnTimeout(video, 10);
+
+  //   // Play for 5 seconds, but stop early if the video ends.  If it takes
+  //   // longer than 10 seconds, fail the test.
+  //   await waiter.waitUntilPlayheadReachesOrFailOnTimeout(video, 5, 10);
+
+  //   await player.unload();
+  // });
 });
