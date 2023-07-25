@@ -1,13 +1,12 @@
-name: Build and Test PR
+name: Build and Test ME
 
 on:
-  pull_request: # Trigger for pull requests.
-    types: [opened, synchronize, reopened, ready_for_review]
-    branches:
-      - main
-      - v[0-9]*
   workflow_dispatch: # Allows for manual triggering.
     inputs:
+      filter:
+        description: "The ref to build and test."
+        required: true
+        default: "MSS Player"
       ref:
         description: "The ref to build and test."
         required: false
@@ -33,9 +32,6 @@ jobs:
         run: python build/check.py
 
   build_and_test:
-    # Don't waste time doing a full matrix of test runs when there was an
-    # obvious linter error.
-    needs: lint
     strategy:
       matrix:
         include:
@@ -164,6 +160,7 @@ jobs:
           python build/test.py \
             --browsers "$browser" \
             --reporters spec --spec-hide-passed \
+            --filter="${{ inputs.filter }}" \
             ${{ matrix.extra_flags }}
 
       - name: Find coverage reports
