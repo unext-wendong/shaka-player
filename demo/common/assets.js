@@ -235,6 +235,39 @@ shakaAssets.UplynkRequestFilter = (type, request) => {
 shakaAssets.testAssets = [
   // Shaka assets {{{
   new ShakaDemoAssetInfo(
+      /* name= */ 'Subtitle TTML',
+      /* iconUri= */ 'https://storage.googleapis.com/shaka-asset-icons/dark_truth.png',
+      /* manifestUri= */ 'https://d1sejb9rba1296.cloudfront.net/tmp/text/t01_imsc_only/manifest.mpd',
+      /* source= */ shakaAssets.Source.SHAKA)
+      .addDescription('UNEXT Subtitle Test Content.')
+      .markAsFeatured('Subtitle TTML')
+      .addFeature(shakaAssets.Feature.DASH)
+      .addFeature(shakaAssets.Feature.HIGH_DEFINITION)
+      .addFeature(shakaAssets.Feature.MP4)
+      .addFeature(shakaAssets.Feature.SUBTITLES),
+  new ShakaDemoAssetInfo(
+      /* name= */ 'Subtitle WebVTT',
+      /* iconUri= */ 'https://storage.googleapis.com/shaka-asset-icons/dark_truth.png',
+      /* manifestUri= */ 'https://d1sejb9rba1296.cloudfront.net/tmp/text/t06_webvtt_only/manifest.mpd',
+      /* source= */ shakaAssets.Source.SHAKA)
+      .addDescription('UNEXT Subtitle Test Content.')
+      .markAsFeatured('Subtitle WebVTT')
+      .addFeature(shakaAssets.Feature.DASH)
+      .addFeature(shakaAssets.Feature.HIGH_DEFINITION)
+      .addFeature(shakaAssets.Feature.MP4)
+      .addFeature(shakaAssets.Feature.SUBTITLES),
+  new ShakaDemoAssetInfo(
+      /* name= */ 'Subtitle TTML and WebVTT',
+      /* iconUri= */ 'https://storage.googleapis.com/shaka-asset-icons/dark_truth.png',
+      /* manifestUri= */ 'https://d1sejb9rba1296.cloudfront.net/tmp/text/t07_imsc_webvtt/manifest.mpd',
+      /* source= */ shakaAssets.Source.SHAKA)
+      .addDescription('UNEXT Subtitle Test Content.')
+      .markAsFeatured('Subtitle TTML and WebVTT')
+      .addFeature(shakaAssets.Feature.DASH)
+      .addFeature(shakaAssets.Feature.HIGH_DEFINITION)
+      .addFeature(shakaAssets.Feature.MP4)
+      .addFeature(shakaAssets.Feature.SUBTITLES),
+  new ShakaDemoAssetInfo(
       /* name= */ 'Big Buck Bunny: the Dark Truths of a Video Dev Cartoon (DASH)',
       /* iconUri= */ 'https://storage.googleapis.com/shaka-asset-icons/dark_truth.png',
       /* manifestUri= */ 'https://storage.googleapis.com/shaka-demo-assets/bbb-dark-truths/dash.mpd',
