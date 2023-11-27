@@ -834,6 +834,30 @@ shakaDemo.Custom = class {
     };
     this.makeField_(container, 'Name', nameSetup, nameOnChange);
 
+    // Make the play token field.
+    const playTokenSetup = (input, container) => {
+      if (assetInProgress.playToken) {
+        input.value = assetInProgress.playToken;
+      }
+    };
+
+    const playTokenOnChange = (input) => {
+      assetInProgress.playToken = input.value || null;
+    };
+    this.makeField_(container, 'Play Token', playTokenSetup, playTokenOnChange);
+
+    // Make the LIME token field.
+    const limeTokenSetup = (input, container) => {
+      if (assetInProgress.limeToken) {
+        input.value = assetInProgress.limeToken;
+      }
+    };
+
+    const limeTokenOnChange = (input) => {
+      assetInProgress.limeToken = input.value || null;
+    };
+    this.makeField_(container, 'LIME Token', limeTokenSetup, limeTokenOnChange);
+
     // Make the icon field.
     const iconSetup = (input, container) => {
       if (assetInProgress.iconUri) {
