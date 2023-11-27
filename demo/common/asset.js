@@ -94,6 +94,10 @@ const ShakaDemoAssetInfo = class {
     this.preloaded = false;
     this.preloadFailed = false;
 
+    /** @type {?string} */
+    this.playToken = null;
+    /** @type {?string} */
+    this.limeToken = null;
 
     // Offline storage values.
     /** @type {?function()} */
@@ -463,6 +467,38 @@ const ShakaDemoAssetInfo = class {
     if (this.responseFilter) {
       networkingEngine.registerResponseFilter(this.responseFilter);
     }
+
+    if (this.licenseServers.get('com.apple.fps')) {
+      /** @type {!shaka.extern.RequestFilter} */
+      const requestFilter = (requestType, request, context) => {
+        return this.addUnextFairPlayRequestFilter_(
+            this.playToken, requestType, request);
+      };
+      networkingEngine.registerRequestFilter(requestFilter);
+      /** @type {!shaka.extern.ResponseFilter} */
+      const responseFilter = (requestType, response, context) => {
+        return this.addUnextFairPlayResponseFilter_(requestType, response);
+      };
+      networkingEngine.registerResponseFilter(responseFilter);
+    }
+
+    if (this.playToken) {
+      /** @type {!shaka.extern.RequestFilter} */
+      const filter = (requestType, request, context) => {
+        return this.addPlayTokenQuery_(
+            this.playToken || '', requestType, request);
+      };
+      networkingEngine.registerRequestFilter(filter);
+    }
+
+    if (this.limeToken) {
+      /** @type {!shaka.extern.RequestFilter} */
+      const filter = (requestType, request, context) => {
+        return this.addLimeAuthHeader_(
+            this.limeToken || '', requestType, request);
+      };
+      networkingEngine.registerRequestFilter(filter);
+    }
   }
 
   /**
@@ -511,6 +547,135 @@ const ShakaDemoAssetInfo = class {
     headers.forEach((value, key) => {
       request.headers[key] = value;
     });
+  }
+
+  /**
+   * Appends "play_token" query parameter to the request.
+   * @param {!string} playToken
+   * @param {shaka.net.NetworkingEngine.RequestType} requestType
+   * @param {shaka.extern.Request} request
+   * @private
+   */
+  addPlayTokenQuery_(playToken, requestType, request) {
+    if (requestType != shaka.net.NetworkingEngine.RequestType.LICENSE &&
+        requestType != shaka.net.NetworkingEngine.RequestType.MANIFEST &&
+        !this.isUnextSampleAesLicenseRequest_(request) &&
+        !this.isUnextAesLicenseRequest_(request)) {
+      return;
+    }
+
+    console.info(
+        'Appending play_token query parameter to ' + request.uris[0] + '...');
+    const sep = request.uris[0].includes('?') ? '&' : '?';
+    request.uris[0] += sep + 'play_token=' + playToken;
+  }
+
+  /**
+   * Adds "Authorization" header to the request.
+   * @param {!string} limeToken
+   * @param {shaka.net.NetworkingEngine.RequestType} requestType
+   * @param {shaka.extern.Request} request
+   * @private
+   */
+  addLimeAuthHeader_(limeToken, requestType, request) {
+    if (requestType != shaka.net.NetworkingEngine.RequestType.LICENSE &&
+        requestType != shaka.net.NetworkingEngine.RequestType.APP &&
+        requestType != shaka.net.NetworkingEngine.RequestType.MANIFEST &&
+        !this.isUnextSampleAesLicenseRequest_(request) &&
+        !this.isUnextAesLicenseRequest_(request)) {
+      return;
+    }
+
+    console.info(
+        'Adding Authorization request header for ' + request.uris[0] + '...');
+    // Add these to the existing headers.  Do not clobber them!
+    // For PlayReady, there will already be headers in the request.
+    request.headers['Authorization'] = 'Bearer ' + limeToken;
+  }
+
+  /**
+   * Checks if the request is an UNEXT Sample AES key request.
+   * @param {shaka.extern.Request} request
+   * @private
+   */
+  isUnextSampleAesLicenseRequest_(request) {
+    return request.uris[0].includes('/saeslic') ||
+        request.uris[0].includes('/hlsvodlic') ||
+        request.uris[0].includes('/unextlivesampleaeslic');
+  }
+
+  /**
+   * Checks if the request is an UNEXT AES128 key request.
+   * @param {shaka.extern.Request} request
+   * @private
+   */
+  isUnextAesLicenseRequest_(request) {
+    return request.uris[0].includes('/aeslic') ||
+        request.uris[0].includes('/hlsvodlic') ||
+        request.uris[0].includes('/unextliveaes128lic');
+  }
+
+  /**
+   * Wraps the FairPlay cert and license request into a UNEXT defined structure.
+   * See: https://wiki.unext-info.jp/pages/viewpage.action?pageId=21348524
+   * @param {?string} playToken
+   * @param {shaka.net.NetworkingEngine.RequestType} requestType
+   * @param {shaka.extern.Request} request
+   * @private
+   */
+  addUnextFairPlayRequestFilter_(playToken, requestType, request) {
+    if (!request.uris[0].includes('/fplic') &&
+        !request.uris[0].includes('/unextlivefplic') &&
+        !request.uris[0].includes('/unextlinearlic')) {
+      return;
+    }
+    if (requestType == shaka.net.NetworkingEngine.RequestType.APP) {
+      const bodyJson = {
+        'request': 'cert',
+        'service': 'unext',
+      };
+      request.method = 'POST';
+      request.body = shaka.util.StringUtils.toUTF8(JSON.stringify(bodyJson));
+    } else if (requestType == shaka.net.NetworkingEngine.RequestType.LICENSE) {
+      const contentId = shaka.util.FairPlayUtils.defaultGetContentId(
+          /** @type {!Uint8Array} */ (request.initData));
+      const bodyJson = {
+        'version': '1.0',
+        'request': 'license',
+        'service': 'unext',
+        'data': {
+          'skd': contentId,
+          'spc': shaka.util.Uint8ArrayUtils.toStandardBase64(
+              /** @type {!ArrayBuffer} */ (request.body)),
+        },
+      };
+      if (playToken) {
+        bodyJson['data']['play_token'] = playToken;
+      }
+      request.method = 'POST';
+      request.body = shaka.util.StringUtils.toUTF8(JSON.stringify(bodyJson));
+    }
+  }
+
+  /**
+   * Unwraps the FairPlay license response per a UNEXT defined structure.
+   * See: https://wiki.unext-info.jp/pages/viewpage.action?pageId=21348524
+   * @param {shaka.net.NetworkingEngine.RequestType} requestType
+   * @param {shaka.extern.Response} response
+   * @private
+   */
+  addUnextFairPlayResponseFilter_(requestType, response) {
+    if (!response.uri.includes('/fplic') &&
+        !response.uri.includes('/unextlivefplic') &&
+        !response.uri.includes('/unextlinearlic')) {
+      return;
+    }
+    if (requestType != shaka.net.NetworkingEngine.RequestType.LICENSE) {
+      return;
+    }
+    const bodyJson = JSON.parse(shaka.util.StringUtils.fromUTF8(response.data));
+    response.data = shaka.util.Uint8ArrayUtils.fromBase64(
+        bodyJson['data']['ckc']);
   }
 
   /** @return {boolean} */
