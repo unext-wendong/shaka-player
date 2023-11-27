@@ -1371,6 +1371,14 @@ shakaDemo.Main = class {
    */
   async getManifestUri_(asset) {
     let manifestUri = asset.manifestUri;
+    if (manifestUri.split('?')[0].split('#')[0].endsWith('.m3u8')) {
+      const sep = manifestUri.includes('?') ? '&' : '?';
+      if (asset.playToken) {
+        manifestUri += sep + 'play_token=' + asset.playToken;
+      } else if (asset.limeToken) {
+        manifestUri += sep + 'authorization=Bearer%20' + asset.limeToken;
+      }
+    }
     // If we have an offline copy, use that.  If the offlineUri field is null,
     // we are still downloading it.
     if (asset.storedContent && asset.storedContent.offlineUri) {
@@ -2076,3 +2084,8 @@ document.addEventListener('shaka-ui-load-failed', (event) => {
   });
 });
 
+if (typeof window !== 'undefined') {
+  // Note: Without this call, HLS FairPlay playback sometimes fails to start
+  //       with error "Media failed to decode".
+  shaka.polyfill.PatchedMediaKeysApple.install();
+}

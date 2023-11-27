@@ -481,5 +481,16 @@ templatized
 vaage
 webapis
 
+# unext specific
+unext
+aeslic
+saeslic
+hlsvodlic
+fplic
+unextliveaes
+unextlivesampleaeslic
+unextlivefplic
+unextlinearlic
+
 # banned words
 !timmer
