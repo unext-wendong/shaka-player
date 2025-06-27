@@ -666,7 +666,8 @@ const ShakaDemoAssetInfo = class {
    */
   addLimeAuthHeader_(limeToken, requestType, request) {
     if (requestType != shaka.net.NetworkingEngine.RequestType.LICENSE &&
-        requestType != shaka.net.NetworkingEngine.RequestType.APP &&
+        requestType !=
+            shaka.net.NetworkingEngine.RequestType.SERVER_CERTIFICATE &&
         requestType != shaka.net.NetworkingEngine.RequestType.MANIFEST &&
         !this.isUnextSampleAesLicenseRequest_(request) &&
         !this.isUnextAesLicenseRequest_(request)) {
@@ -718,7 +719,8 @@ const ShakaDemoAssetInfo = class {
         !request.uris[0].includes('/unextlinearlic')) {
       return;
     }
-    if (requestType == shaka.net.NetworkingEngine.RequestType.APP) {
+    if (requestType ==
+        shaka.net.NetworkingEngine.RequestType.SERVER_CERTIFICATE) {
       const bodyJson = {
         'request': 'cert',
         'service': 'unext',
