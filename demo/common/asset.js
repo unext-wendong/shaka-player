@@ -727,8 +727,19 @@ const ShakaDemoAssetInfo = class {
       request.method = 'POST';
       request.body = shaka.util.StringUtils.toUTF8(JSON.stringify(bodyJson));
     } else if (requestType == shaka.net.NetworkingEngine.RequestType.LICENSE) {
-      const contentId = shaka.util.FairPlayUtils.defaultGetContentId(
+      // The DRM initData changed from
+      //   b'sdk://xxx'
+      // to
+      //   b'<len-4b><data1><len-4b><content-id><len-4b><data2>'
+      // since v4.16.10.
+      const view = shaka.util.BufferUtils.toDataView(
           /** @type {!Uint8Array} */ (request.initData));
+      const offset = 4 + view.getUint32(0, /* littleEndian= */ true);
+      const dataSize = view.getUint32(offset, /* littleEndian= */ true);
+      const contentIdUtf16 =
+          request.initData.subarray(offset + 4, offset + 4 + dataSize);
+      const contentId = shaka.util.StringUtils.fromBytesAutoDetect(
+          contentIdUtf16);
       const bodyJson = {
         'version': '1.0',
         'request': 'license',
