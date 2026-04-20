@@ -667,6 +667,10 @@ const ShakaDemoAssetInfo = class {
         !this.isUnextAesLicenseRequest_(request)) {
       return;
     }
+    if (requestType == shaka.net.NetworkingEngine.RequestType.MANIFEST &&
+        request.uris[0].includes('/out/v')) {
+      return; // Skip live manifest fetching requests
+    }
 
     console.info(
         'Appending play_token query parameter to ' + request.uris[0] + '...');
@@ -689,6 +693,10 @@ const ShakaDemoAssetInfo = class {
         !this.isUnextSampleAesLicenseRequest_(request) &&
         !this.isUnextAesLicenseRequest_(request)) {
       return;
+    }
+    if (requestType == shaka.net.NetworkingEngine.RequestType.MANIFEST &&
+        request.uris[0].includes('/out/v')) {
+      return; // Skip live manifest fetching requests
     }
 
     console.info(

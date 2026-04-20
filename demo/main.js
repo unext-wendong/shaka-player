@@ -1430,7 +1430,8 @@ shakaDemo.Main = class {
    */
   async getManifestUri_(asset) {
     let manifestUri = asset.manifestUri;
-    if (manifestUri.split('?')[0].split('#')[0].endsWith('.m3u8')) {
+    if (manifestUri.split('?')[0].split('#')[0].endsWith('.m3u8') &&
+        !manifestUri.includes('/out/v')) {
       const sep = manifestUri.includes('?') ? '&' : '?';
       if (asset.playToken) {
         manifestUri += sep + 'play_token=' + asset.playToken;
